@@ -1,8 +1,14 @@
+from asyncio.windows_events import NULL
 import docx
 import shutil
+import subprocess
+import pathlib
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from replacers.ReplacerBuilder import ReplacerBuilder
 from settings import loadSettings, NUM_PRESTAZIONI
+import settings
 
 pay = 0
 month = 0
@@ -21,23 +27,29 @@ def getData():
     theoreticalPay = pay / (1 - 20 / 100) # pay is theoretical pay - 20% 
     ritenuta = theoreticalPay - pay
 
-templateNotulaFileName = 'Notula template.docx'
-# templateNotulaFileName = 'test.docx'
-newNotulaFileName = 'demo.docx'
+templateNotulaFileName = 'template/Notula template.docx'
 
-shutil.copy(templateNotulaFileName, newNotulaFileName)
-notula = docx.Document(newNotulaFileName)
 
-settings = loadSettings()
+options = loadSettings()
 getData()
 
-replacerChain = ReplacerBuilder().defaultChain(pay, month, settings[NUM_PRESTAZIONI], theoreticalPay, ritenuta)
+# templateNotulaFileName = 'template/test.docx'
+newNotulaFileName = (datetime.today() + relativedelta(month=month)).strftime('%B %Y')
+newNotulaFilePath = f'output\{newNotulaFileName}.docx'
+shutil.copy(templateNotulaFileName, newNotulaFilePath)
+notula = docx.Document(newNotulaFilePath)
+
+replacerChain = ReplacerBuilder().defaultChain(pay, month, options[NUM_PRESTAZIONI], theoreticalPay, ritenuta)
 
 for paragraph in notula.paragraphs:
     # print(paragraph.text)
     # print('-----')
     replacerChain.handle(paragraph)
-    print(paragraph.text)
-    print('-----')
+    # print(paragraph.text)
+    # print('-----')
 
-notula.save(newNotulaFileName)
+notula.save(newNotulaFilePath)
+
+# print(str(pathlib.Path().resolve()) + "\\" + newNotulaFileName)
+newNotulaFilePath = '\\' + newNotulaFilePath
+subprocess.Popen(fr'explorer /select,"{str(pathlib.Path().resolve()) + "" + newNotulaFilePath}"')
