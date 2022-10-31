@@ -14,15 +14,15 @@ def getData():
     global month
     global ritenuta
     global theoreticalPay
-    # pay = input("Quanto hai guadagnato? ")
-    # month = input("Che mese? (input da 1 a 12) ")
-    pay = 300
-    month = 10
+    pay = int(input("Quanto hai guadagnato? "))
+    month = int(input("Che mese? (input da 1 a 12) "))
+    # pay = 300
+    # month = 10
     theoreticalPay = pay / (1 - 20 / 100) # pay is theoretical pay - 20% 
     ritenuta = theoreticalPay - pay
 
-# templateNotulaFileName = 'Notula template.docx'
-templateNotulaFileName = 'test.docx'
+templateNotulaFileName = 'Notula template.docx'
+# templateNotulaFileName = 'test.docx'
 newNotulaFileName = 'demo.docx'
 
 shutil.copy(templateNotulaFileName, newNotulaFileName)
