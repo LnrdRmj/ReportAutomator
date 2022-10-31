@@ -20,3 +20,6 @@ class ReplacerInterface:
     # Override this method
     def canHandleRequest(self):
         return False
+
+    def canHandleRequest(self, paragraph):
+        return (self.getStringToReplace() in paragraph.text)
