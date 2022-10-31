@@ -2,6 +2,9 @@ from .ReplaceNumPrestazione import ReplaceNumPrestazione
 from .ReplacePay import ReplacePay
 from .ReplaceFineData import ReplaceFineData
 from .ReplaceInizioData import ReplaceInizioData
+from .ReplaceDataOdierna import ReplaceDataOdierna
+from .ReplaceRitenuta import ReplaceRitenuta
+from .ReplaceTheoreticalPay import ReplaceTheoreticalPay, ReplacerInterface
 
 class ReplacerBuilder:
 
@@ -31,11 +34,26 @@ class ReplacerBuilder:
         self.replacers.append(ReplaceInizioData(month))
         return self
 
-    def defaultChain(self, pay, month, numPrestazioni):
+    def addDataOdierna(self):
+        self.replacers.append(ReplaceDataOdierna())
+        return self
+
+    def addRitenuta(self, ritenuta):
+        self.replacers.append(ReplaceRitenuta(ritenuta))
+        return self
+
+    def addTheoreticalPay(self, theoreticalPay):
+        self.replacers.append(ReplaceTheoreticalPay(theoreticalPay))
+        return self
+
+    def defaultChain(self, pay, month, numPrestazioni, theoreticalPay, ritenuta):
         return self\
             .addReplaceNumPrestazione(numPrestazioni)\
             .addReplacePay(pay)\
             .addFineData(month)\
             .addInizioData(month)\
+            .addDataOdierna()\
+            .addTheoreticalPay(theoreticalPay)\
+            .addRitenuta(ritenuta)\
             .build()
             

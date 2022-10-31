@@ -6,14 +6,20 @@ from settings import loadSettings, NUM_PRESTAZIONI
 
 pay = 0
 month = 0
+ritenuta = 0
+theoreticalPay = 0
 
 def getData():
     global pay
     global month
+    global ritenuta
+    global theoreticalPay
     # pay = input("Quanto hai guadagnato? ")
     # month = input("Che mese? (input da 1 a 12) ")
     pay = 300
     month = 10
+    theoreticalPay = pay / (1 - 20 / 100) # pay is theoretical pay - 20% 
+    ritenuta = theoreticalPay - pay
 
 # templateNotulaFileName = 'Notula template.docx'
 templateNotulaFileName = 'test.docx'
@@ -25,7 +31,7 @@ notula = docx.Document(newNotulaFileName)
 settings = loadSettings()
 getData()
 
-replacerChain = ReplacerBuilder().defaultChain(pay, month, settings[NUM_PRESTAZIONI])
+replacerChain = ReplacerBuilder().defaultChain(pay, month, settings[NUM_PRESTAZIONI], theoreticalPay, ritenuta)
 
 for paragraph in notula.paragraphs:
     # print(paragraph.text)
