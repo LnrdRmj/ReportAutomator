@@ -13,7 +13,7 @@ def getData():
     # pay = input("Quanto hai guadagnato? ")
     # month = input("Che mese? (input da 1 a 12) ")
     pay = 300
-    month = 12
+    month = 10
 
 # templateNotulaFileName = 'Notula template.docx'
 templateNotulaFileName = 'test.docx'
