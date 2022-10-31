@@ -3,11 +3,11 @@ from settings import getAndUpdateNumPrestazioni
 
 class ReplaceNumPrestazione(ReplacerInterface):
     
-    STRING_TO_REPLACE = '{{num_prestazione}}'
+    STRING_TO_REPLACE = '{{data_inizio}}'
 
-    def __init__(self, numPrestazioni):
+    def __init__(self, mese):
         super().__init__(ReplaceNumPrestazione.STRING_TO_REPLACE)
-        self.numPrestazioni = numPrestazioni
+        self.mese = mese
 
     def handle(self, paragraph):
         if (self.canHandleRequest(paragraph)):
