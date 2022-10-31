@@ -1,5 +1,6 @@
 from .ReplaceNumPrestazione import ReplaceNumPrestazione
 from .ReplacePay import ReplacePay
+from .ReplaceFineData import ReplaceFineData
 
 class ReplacerBuilder:
 
@@ -21,9 +22,14 @@ class ReplacerBuilder:
         self.replacers.append(ReplacePay(pay))
         return self
 
+    def addFindeData(self, month):
+        self.replacers.append(ReplaceFineData(month))
+        return self
+
     def defaultChain(self, pay, month, numPrestazioni):
         return self\
             .addReplaceNumPrestazione(numPrestazioni)\
             .addReplacePay(pay)\
+            .addFindeData(month)\
             .build()
             

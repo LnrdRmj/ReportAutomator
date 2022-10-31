@@ -13,7 +13,7 @@ def getData():
     # pay = input("Quanto hai guadagnato? ")
     # month = input("Che mese? (input da 1 a 12) ")
     pay = 300
-    month = 10
+    month = 12
 
 # templateNotulaFileName = 'Notula template.docx'
 templateNotulaFileName = 'test.docx'
@@ -28,6 +28,10 @@ getData()
 replacerChain = ReplacerBuilder().defaultChain(pay, month, settings[NUM_PRESTAZIONI])
 
 for paragraph in notula.paragraphs:
+    # print(paragraph.text)
+    # print('-----')
     replacerChain.handle(paragraph)
+    print(paragraph.text)
+    print('-----')
 
 notula.save(newNotulaFileName)

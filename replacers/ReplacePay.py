@@ -14,8 +14,5 @@ class ReplacePay(ReplacerInterface):
         else:
             super().handle(paragraph)
 
-    def canHandleRequest(self, paragraph):
-        return (self.getStringToReplace() in paragraph.text)
-
     def formatPay(self):
         return "€{:.2f}".format(int(self.pay))
