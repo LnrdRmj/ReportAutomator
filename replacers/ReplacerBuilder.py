@@ -13,14 +13,17 @@ class ReplacerBuilder:
 
         return self.replacers[0]
 
-    def addReplaceNumPrestazione(self):
-        self.replacers.append(ReplaceNumPrestazione())
+    def addReplaceNumPrestazione(self, numPrestazioni):
+        self.replacers.append(ReplaceNumPrestazione(numPrestazioni))
         return self
     
-    def addReplacePay(self):
-        self.replacers.append(ReplacePay())
+    def addReplacePay(self, pay):
+        self.replacers.append(ReplacePay(pay))
         return self
 
-    def defaultChain(self):
-        return self.addReplaceNumPrestazione().addReplacePay().build()
+    def defaultChain(self, pay, month, numPrestazioni):
+        return self\
+            .addReplaceNumPrestazione(numPrestazioni)\
+            .addReplacePay(pay)\
+            .build()
             
