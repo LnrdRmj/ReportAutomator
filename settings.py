@@ -53,8 +53,8 @@ class Settings:
         return self.options.get(Settings.NUM_PRESTAZIONI)
 
     def getAndUpdateNumPrestazioni(self):
-        numPrestazioni = self.settings[Settings.NUM_PRESTAZIONI]
-        self.setNumPrestazioni(self.settings[Settings.NUM_PRESTAZIONI] + 1)
+        numPrestazioni = self.getNumPrestazioni()
+        self.setNumPrestazioni(numPrestazioni + 1)
         return numPrestazioni
 
 if __name__ == "__main__":

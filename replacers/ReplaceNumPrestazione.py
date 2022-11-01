@@ -11,6 +11,6 @@ class ReplaceNumPrestazione(ReplacerInterface):
 
     def handle(self, paragraph):
         if (self.canHandleRequest(paragraph)):
-            paragraph.text = paragraph.text.replace(self.getStringToReplace(), str(Settings().getAndUpdateNumPrestazioni))
+            paragraph.text = paragraph.text.replace(self.getStringToReplace(), str(Settings().getAndUpdateNumPrestazioni()))
         else:
             super().handle(paragraph)
