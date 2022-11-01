@@ -7,32 +7,33 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from replacers.ReplacerBuilder import ReplacerBuilder
-from settings import loadSettings, NUM_PRESTAZIONI
-import settings
+from settings import Settings
 
 pay = 0
 month = 0
 ritenuta = 0
 theoreticalPay = 0
 
-options = loadSettings()
+options = Settings()
 
 def askMonth():
 
     global options
 
-    month = options[settings.PREVIOUS_MONTH]
-    if (month != NULL):
+    month = options.getMonth()
+    if (month != None):
         monthPrediction = (month + 1) % 12
         answer = input(f"Il mese della rendicontazione è {monthPrediction}? [Y/month] ")
 
         if (answer == '' or answer == 'Y'):
-            return monthPrediction
+            month = monthPrediction
         else:
-            return int(answer)
+            month = int(answer)
+    else:
+        month = int(input("Che mese? (input da 1 a 12) "))
 
-    return int(input("Che mese? (input da 1 a 12) "))
-
+    options.saveMonth(month)
+    return month
 
 def getData():
     global pay
@@ -56,7 +57,7 @@ newNotulaFilePath = f'output\{newNotulaFileName}.docx'
 shutil.copy(templateNotulaFileName, newNotulaFilePath)
 notula = docx.Document(newNotulaFilePath)
 
-replacerChain = ReplacerBuilder().defaultChain(pay, month, options[NUM_PRESTAZIONI], theoreticalPay, ritenuta)
+replacerChain = ReplacerBuilder().defaultChain(pay, month, options.getNumPrestazioni(), theoreticalPay, ritenuta)
 
 for paragraph in notula.paragraphs:
     # print(paragraph.text)

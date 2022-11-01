@@ -34,6 +34,9 @@ class Settings:
         self.options[Settings.PREVIOUS_MONTH] = month
         self.saveOptions()
 
+    def getMonth(self):
+        return self.options.get(Settings.PREVIOUS_MONTH)
+
     def saveOptions(self):
         with open(Settings.SETTINGS_FILE_NAME, "w") as f:
             json.dump(self.options, f, indent=4)
@@ -42,12 +45,16 @@ class Settings:
         numPrestazioni = input('Quante prestazioni hai fatto? [0] ')
         return 0 if numPrestazioni == '' else numPrestazioni
 
+    def setNumPrestazioni(self, numPrestazioni):
+        self.options[Settings.NUM_PRESTAZIONI] = numPrestazioni
+        self.saveOptions()
+
+    def getNumPrestazioni(self):
+        return self.options.get(Settings.NUM_PRESTAZIONI)
+
     def getAndUpdateNumPrestazioni(self):
-        settings = self.loadSettings()
-        numPrestazioni = settings[Settings.NUM_PRESTAZIONI]
-        settings[Settings.NUM_PRESTAZIONI] = settings[Settings.NUM_PRESTAZIONI] + 1
-        with open(Settings.SETTINGS_FILE_NAME, "w") as f:
-            json.dump(settings, f, indent=4)
+        numPrestazioni = self.settings[Settings.NUM_PRESTAZIONI]
+        self.setNumPrestazioni(self.settings[Settings.NUM_PRESTAZIONI] + 1)
         return numPrestazioni
 
 if __name__ == "__main__":
