@@ -52,7 +52,7 @@ getData()
 
 # templateNotulaFileName = 'template/test.docx'
 newNotulaFileName = (datetime.today() + relativedelta(month=month)).strftime('%B %Y')
-newNotulaFilePath = f'output\{newNotulaFileName}.docx'
+newNotulaFilePath = f'{options.getOutputFoler()}\{newNotulaFileName}.docx'
 shutil.copy(templateNotulaFileName, newNotulaFilePath)
 notula = docx.Document(newNotulaFilePath)
 
