@@ -1,9 +1,8 @@
-from asyncio.windows_events import NULL
 
 class ReplacerInterface: 
 
     def __init__ (self, stringToReplace):
-        self.next = NULL
+        self.next = None
         self.stringToReplace = stringToReplace
 
     # Sets the next handler
@@ -11,7 +10,7 @@ class ReplacerInterface:
         self.next = newReplacer
 
     def handle(self, paragraph):
-        if (self.next != NULL):
+        if (self.next != None):
             self.next.handle(paragraph)
 
     def getStringToReplace(self):
