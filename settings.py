@@ -9,7 +9,7 @@ class Settings:
 
     NUM_PRESTAZIONI = 'NUM_PRESTAZIONI'
     PREVIOUS_MONTH = 'PREVIOUS_MONTH'
-    OUTPUT_FOLDER = 'OUTPUT_FOLDERs'
+    OUTPUT_FOLDER = 'OUTPUT_FOLDERS'
 
     def __init__(self):
         self.options = self.loadSettings()
@@ -53,7 +53,7 @@ class Settings:
 
     def askOutputFolder(self):
         print('Scegli dove salvare le rendicontazioni (aspetta un secondo)')
-        # time.sleep(3)
+        time.sleep(1)
         outputFolder = easygui.diropenbox()
         return outputFolder
 
@@ -62,7 +62,7 @@ class Settings:
         self.saveOptions()
 
     def getNumPrestazioni(self):
-        return self.options.get(Settings.NUM_PRESTAZIONI)
+        return int(self.options.get(Settings.NUM_PRESTAZIONI))
 
     def getAndUpdateNumPrestazioni(self):
         numPrestazioni = self.getNumPrestazioni()

@@ -4,6 +4,7 @@ import subprocess
 import pathlib
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import time
 
 from replacers.ReplacerBuilder import ReplacerBuilder
 from settings import Settings
@@ -68,5 +69,7 @@ for paragraph in notula.paragraphs:
 notula.save(newNotulaFilePath)
 
 # print(str(pathlib.Path().resolve()) + "\\" + newNotulaFileName)
-newNotulaFilePath = '\\' + newNotulaFilePath
-subprocess.Popen(fr'explorer /select,"{str(pathlib.Path().resolve()) + "" + newNotulaFilePath}"')
+subprocess.Popen(fr'explorer /select,"{newNotulaFilePath}"')
+
+print('Finito. Tutto a posto. Mi chiuderò tra poco 👋')
+time.sleep(1)
