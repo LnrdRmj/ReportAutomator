@@ -1,5 +1,5 @@
 from .ReplacerInterface import ReplacerInterface
-from settings import getAndUpdateNumPrestazioni
+from settings import Settings
 
 class ReplaceNumPrestazione(ReplacerInterface):
     
@@ -11,6 +11,6 @@ class ReplaceNumPrestazione(ReplacerInterface):
 
     def handle(self, paragraph):
         if (self.canHandleRequest(paragraph)):
-            paragraph.text = paragraph.text.replace(self.getStringToReplace(), str(getAndUpdateNumPrestazioni()))
+            paragraph.text = paragraph.text.replace(self.getStringToReplace(), str(Settings().getAndUpdateNumPrestazioni))
         else:
             super().handle(paragraph)
